@@ -1,4 +1,4 @@
-<form #form="ngForm" autocomplete="off" *ngIf="orderService.formData">
+<form #form="ngForm" autocomplete="off" *ngIf="orderService.formData" (submit)="onSubmit(form)">
   <div class="row">
     <div class="col-md-6">
       <div class="form-group my-3">
@@ -12,8 +12,10 @@
       </div>
       <div class="form-group my-3">
         <label>Customer</label>
-        <select name="customerId" #customerId [(ngModel)]="orderService.formData.customerId" class="form-select">
+        <select name="customerId" #customerId [(ngModel)]="orderService.formData.customerId" class="form-select"
+        [class.is-invalid]="!isValid && orderService.formData.customerId==0">
           <option value="0">-Select-</option>
+          <option *ngFor="let item of customerList" value="{{item.customerId}}">{{item.name}}</option>
         </select>
       </div>
     </div>
@@ -51,7 +53,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngIf="orderService.orderItems.length==0">
+      <tr *ngIf="orderService.orderItems.length==0" [class.text-danger]="!isValid && orderService.orderItems.length==0">
         <td class="font-italic text-center" colspan="5">
           No item selected for this order
         </td>
