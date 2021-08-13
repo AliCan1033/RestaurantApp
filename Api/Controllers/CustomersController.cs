@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CustomersController: ControllerBase
     {
          private readonly ModelContext _context;
